@@ -1,6 +1,6 @@
 # Coffee2Code — A Caneca Dev-Proof
 
-## Integrantes
+## Integrante
 - **Arthur Bispo dos Santos**
 
 ---
