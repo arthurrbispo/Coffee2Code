@@ -1,13 +1,28 @@
 :root {
-  --color-bg: #0B1E3F;
-  --color-card: #132A52;
+  --color-bg: #090D16;
+  --color-bg-alt: #0E1526;
+  --color-card: #131E36;
+  --color-card-border: rgba(255, 85, 0, 0.15);
+  --color-card-hover: #1A2846;
   --color-primary: #FF5500;
-  --color-primary-hover: #E04B00;
-  --color-text: #FFFFFF;
-  --color-text-secondary: #8B949E;
+  --color-primary-hover: #FF6A1A;
+  --color-primary-glow: rgba(255, 85, 0, 0.35);
+  --color-secondary: #00D2FF;
+  --color-text: #F0F4F8;
+  --color-text-muted: #94A3B8;
   --color-terminal: #00FF66;
+  --color-terminal-bg: rgba(0, 255, 102, 0.08);
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Fira Code', monospace;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  --shadow-glow: 0 0 35px rgba(255, 85, 0, 0.25);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 * {
@@ -18,13 +33,40 @@
 
 body {
   background-color: var(--color-bg);
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(255, 85, 0, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 65%, rgba(0, 210, 255, 0.06) 0%, transparent 45%);
+  background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-main);
   line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 button {
   cursor: pointer;
   font-family: inherit;
   border: none;
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2d4a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
 }
