@@ -1,0 +1,74 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  color: var(--color-terminal);
+  font-size: 0.9rem;
+}
+
+.title {
+  font-size: 2.8rem;
+  line-height: 1.2;
+  margin: 1rem 0;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.ctaButton {
+  background: var(--color-primary);
+  color: var(--color-text);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.ctaButton:hover {
+  background: var(--color-primary-hover);
+}
+
+.mockupContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.mugMockup {
+  width: 240px;
+  height: 280px;
+  background: var(--color-card);
+  border: 2px solid var(--color-primary);
+  border-radius: 0 0 30px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(255, 85, 0, 0.2);
+}
+
+.mugLed {
+  font-family: var(--font-mono);
+  background: #000;
+  color: var(--color-terminal);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}

@@ -1,0 +1,30 @@
+:root {
+  --color-bg: #0B1E3F;
+  --color-card: #132A52;
+  --color-primary: #FF5500;
+  --color-primary-hover: #E04B00;
+  --color-text: #FFFFFF;
+  --color-text-secondary: #8B949E;
+  --color-terminal: #00FF66;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  line-height: 1.6;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+}
