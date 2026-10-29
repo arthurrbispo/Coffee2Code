@@ -19,7 +19,7 @@ export function LandingPage() {
     <>
       <Navbar onCtaClick={ctaVm.openModal} />
 
-      <main>
+      <main id="conteudo-principal" tabIndex={-1}>
         <Hero onCtaClick={ctaVm.openModal} />
 
         <Features benefits={productVm.benefits} />

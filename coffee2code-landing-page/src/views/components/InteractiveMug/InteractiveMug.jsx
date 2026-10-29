@@ -44,14 +44,15 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
           <div className={styles.consolePanel}>
             <div className={styles.panelHeader}>
               <div className={styles.panelTitle}>
-                <Sliders size={18} color="#FF5500" />
+                <Sliders size={18} color="#FF5500" aria-hidden="true" />
                 <span>Console de Controle do Hardware</span>
               </div>
               <button
                 className={`${styles.powerToggle} ${power ? styles.powerOn : ''}`}
                 onClick={() => setPower(!power)}
+                aria-pressed={power}
               >
-                <Power size={14} />
+                <Power size={14} aria-hidden="true" />
                 {power ? 'LIGADO' : 'DESLIGADO'}
               </button>
             </div>
@@ -60,15 +61,17 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
               {/* Temperature Slider */}
               <div className={styles.controlGroup}>
                 <div className={styles.labelRow}>
-                  <label>Regulagem de Temperatura (°C)</label>
+                  <label htmlFor="mug-temp">Regulagem de Temperatura (°C)</label>
                   <span className={styles.valueDisplay}>{mugTemp}°C</span>
                 </div>
                 <input
+                  id="mug-temp"
                   type="range"
                   min="40"
                   max="85"
                   value={mugTemp}
                   disabled={!power}
+                  aria-valuetext={`${mugTemp} graus Celsius`}
                   onChange={(e) => {
                     const val = Number(e.target.value);
                     setMugTemp(val);
@@ -88,15 +91,17 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
               {/* Coffee Level Slider */}
               <div className={styles.controlGroup}>
                 <div className={styles.labelRow}>
-                  <label>Nível Fictício de Café (%)</label>
+                  <label htmlFor="mug-level">Nível Fictício de Café (%)</label>
                   <span className={styles.valueDisplay}>{coffeeLevel}%</span>
                 </div>
                 <input
+                  id="mug-level"
                   type="range"
                   min="5"
                   max="100"
                   value={coffeeLevel}
                   disabled={!power}
+                  aria-valuetext={`${coffeeLevel} por cento`}
                   onChange={(e) => setCoffeeLevel(Number(e.target.value))}
                   className={styles.rangeInput}
                 />
@@ -104,12 +109,13 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
 
               {/* Display Preset Buttons */}
               <div className={styles.controlGroup}>
-                <label>Presets de Mensagem para Display OLED</label>
-                <div className={styles.presetGrid}>
+                <span className={styles.groupLabel} id="presets-label">Presets de Mensagem para Display OLED</span>
+                <div className={styles.presetGrid} role="group" aria-labelledby="presets-label">
                   {presets.map((p) => (
                     <button
                       key={p.label}
                       disabled={!power}
+                      aria-pressed={selectedPreset === p.label}
                       className={`${styles.presetBtn} ${selectedPreset === p.label ? styles.selectedPreset : ''}`}
                       onClick={() => applyPreset(p)}
                     >
@@ -121,9 +127,10 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
 
               {/* Custom Input */}
               <div className={styles.controlGroup}>
-                <label>Texto Customizado no Display</label>
+                <label htmlFor="mug-custom-text">Texto Customizado no Display</label>
                 <div className={styles.inputWrapper}>
                   <input
+                    id="mug-custom-text"
                     type="text"
                     maxLength={28}
                     value={customMsg}
@@ -142,11 +149,16 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
 
           {/* Interactive Screen & Terminal Output */}
           <div className={styles.displayPanel}>
+            <p className="sr-only" aria-live="polite">
+              {power
+                ? `Caneca ligada. Temperatura: ${mugTemp} graus Celsius. Status: ${mugStatus}. Nível de café: ${coffeeLevel} por cento. Mensagem no display: ${customMsg || 'SISTEMA OPERACIONAL'}.`
+                : 'Caneca desligada. Sistema desligado.'}
+            </p>
             <div className={styles.displayCard}>
               <div className={styles.displayCardHeader}>
                 <span className={styles.screenTitle}>PAINEL OLED DUAL-COLOR</span>
                 <div className={styles.statusIcons}>
-                  <Wifi size={14} color="#00FF66" />
+                  <Wifi size={14} color="#00FF66" aria-hidden="true" />
                   <span className={styles.batteryPill}>{coffeeLevel}% Bateria</span>
                 </div>
               </div>
@@ -187,7 +199,7 @@ export function InteractiveMug({ mugTemp, setMugTemp, mugStatus, setMugStatus, c
               {/* Real-time JSON Webhook simulator code */}
               <div className={styles.terminalBox}>
                 <div className={styles.terminalTopBar}>
-                  <Terminal size={14} color="#94A3B8" />
+                  <Terminal size={14} color="#94A3B8" aria-hidden="true" />
                   <span>telemetry_stream.json</span>
                 </div>
                 <pre className={styles.jsonOutput}>

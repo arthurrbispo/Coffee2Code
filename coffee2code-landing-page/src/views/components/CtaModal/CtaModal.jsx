@@ -11,14 +11,20 @@ export function CtaModal({
   onClose, onChange, onSubmit, copyReservationCode,
 }) {
   const overlayRef = useRef(null);
+  const modalRef = useRef(null);
   const firstInputRef = useRef(null);
+  const triggerRef = useRef(null);
 
   useEffect(() => {
     if (isOpen) {
+      triggerRef.current = document.activeElement;
       document.body.style.overflow = 'hidden';
       setTimeout(() => firstInputRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = '';
+      if (triggerRef.current && typeof triggerRef.current.focus === 'function') {
+        triggerRef.current.focus();
+      }
     }
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
@@ -29,6 +35,27 @@ export function CtaModal({
     return () => window.removeEventListener('keydown', handleEsc);
   }, [isOpen, onClose]);
 
+  const handleTrapFocus = (e) => {
+    if (e.key !== 'Tab') return;
+    const modal = modalRef.current;
+    if (!modal) return;
+    const focusables = modal.querySelectorAll(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first || !modal.contains(document.activeElement)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else if (document.activeElement === last || !modal.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -36,12 +63,14 @@ export function CtaModal({
           ref={overlayRef}
           className={styles.overlay}
           onClick={onClose}
+          onKeyDown={handleTrapFocus}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
         >
           <motion.div
+            ref={modalRef}
             className={styles.modal}
             onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.92, y: 20 }}
@@ -50,19 +79,19 @@ export function CtaModal({
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             role="dialog"
             aria-modal="true"
-            aria-label="Formulário de reserva Coffee2Code"
+            aria-labelledby="cta-modal-title"
           >
             <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar modal">
-              <X size={20} />
+              <X size={20} aria-hidden="true" />
             </button>
 
             {!isSubmitted ? (
               <>
                 <div className={styles.modalHeader}>
-                  <div className={styles.modalIcon}>
+                  <div className={styles.modalIcon} aria-hidden="true">
                     <Package size={22} color="#FF5500" />
                   </div>
-                  <h2 className={styles.modalTitle}>Garantir Coffee2Code</h2>
+                  <h2 className={styles.modalTitle} id="cta-modal-title">Garantir Coffee2Code</h2>
                   <p className={styles.modalSubtitle}>
                     Lote <span className={styles.highlight}>Early Access</span> por apenas{' '}
                     <strong className={styles.price}>R$ 179,00</strong>
@@ -70,14 +99,14 @@ export function CtaModal({
                 </div>
 
                 <div className={styles.earlyAccessBanner}>
-                  <Shield size={15} color="#00FF66" />
+                  <Shield size={15} color="#00FF66" aria-hidden="true" />
                   <span>Frete grátis + 30 dias de teste garantido</span>
                 </div>
 
                 <form onSubmit={onSubmit} className={styles.form} noValidate>
                   <div className={styles.field}>
                     <label htmlFor="name">
-                      <User size={14} /> Nome completo
+                      <User size={14} aria-hidden="true" /> Nome completo
                     </label>
                     <input
                       ref={firstInputRef}
@@ -106,7 +135,7 @@ export function CtaModal({
 
                   <div className={styles.field}>
                     <label htmlFor="email">
-                      <Mail size={14} /> E-mail corporativo ou pessoal
+                      <Mail size={14} aria-hidden="true" /> E-mail corporativo ou pessoal
                     </label>
                     <input
                       type="email"
@@ -134,7 +163,7 @@ export function CtaModal({
 
                   <div className={styles.field}>
                     <label htmlFor="role">
-                      <Users size={14} /> Principal stack de atuação
+                      <Users size={14} aria-hidden="true" /> Principal stack de atuação
                     </label>
                     <select
                       id="role"
@@ -179,18 +208,18 @@ export function CtaModal({
                 </form>
               </>
             ) : (
-              <div className={styles.success}>
+              <div className={styles.success} role="status">
                 <motion.div
                   className={styles.successIcon}
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: 'spring', stiffness: 200, damping: 15 }}
                 >
-                  <CheckCircle size={48} color="#00FF66" />
+                  <CheckCircle size={48} color="#00FF66" aria-hidden="true" />
                 </motion.div>
 
                 <span className={styles.terminalBadge}>
-                  <Terminal size={13} /> Status: 200 OK
+                  <Terminal size={13} aria-hidden="true" /> Status: 200 OK
                 </span>
 
                 <h2 className={styles.successTitle}>Reserva Confirmada!</h2>
@@ -206,8 +235,9 @@ export function CtaModal({
                     <button
                       className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
                       onClick={copyReservationCode}
+                      aria-live="polite"
                     >
-                      <Copy size={14} />
+                      <Copy size={14} aria-hidden="true" />
                       {copied ? 'Copiado!' : 'Copiar'}
                     </button>
                   </div>

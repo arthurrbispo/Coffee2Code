@@ -28,9 +28,12 @@ export function Navbar({ onCtaClick }) {
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+      <a href="#conteudo-principal" className={styles.skipLink}>
+        Pular para o conteúdo principal
+      </a>
       <div className={styles.container}>
-        <a href="#" className={styles.logo}>
-          <div className={styles.logoIcon}>
+        <a href="#" className={styles.logo} aria-label="Coffee2Code — voltar ao topo">
+          <div className={styles.logoIcon} aria-hidden="true">
             <Coffee size={20} color="#FF5500" />
           </div>
           <span className={styles.logoText}>
@@ -40,7 +43,11 @@ export function Navbar({ onCtaClick }) {
           </span>
         </a>
 
-        <nav className={`${styles.nav} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
+        <nav
+          id="menu-principal"
+          aria-label="Navegação principal"
+          className={`${styles.nav} ${mobileMenuOpen ? styles.mobileOpen : ''}`}
+        >
           <a href="#beneficios" onClick={closeMobileMenu} className={styles.navLink}>
             Benefícios
           </a>
@@ -62,7 +69,7 @@ export function Navbar({ onCtaClick }) {
                 onCtaClick();
               }}
             >
-              <Sparkles size={16} />
+              <Sparkles size={16} aria-hidden="true" />
               Garantir Lote
             </button>
           </div>
@@ -70,16 +77,18 @@ export function Navbar({ onCtaClick }) {
 
         <div className={styles.actions}>
           <button className={styles.ctaBtn} onClick={onCtaClick}>
-            <Sparkles size={16} />
+            <Sparkles size={16} aria-hidden="true" />
             Garantir Lote
           </button>
 
           <button
             className={styles.menuToggle}
             onClick={toggleMobileMenu}
-            aria-label="Abrir Menu"
+            aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="menu-principal"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
           </button>
         </div>
       </div>

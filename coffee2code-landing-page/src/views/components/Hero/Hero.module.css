@@ -127,7 +127,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  background: linear-gradient(135deg, #FF5500 0%, #FF7700 100%);
+  background: linear-gradient(135deg, var(--color-btn-from) 0%, var(--color-btn-to) 100%);
   color: #FFFFFF;
   padding: 1rem 2rem;
   font-size: 1.05rem;
@@ -140,7 +140,7 @@
 .ctaButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(255, 85, 0, 0.5);
-  background: linear-gradient(135deg, #FF6611 0%, #FF8811 100%);
+  background: linear-gradient(135deg, var(--color-btn-hover-from) 0%, var(--color-btn-hover-to) 100%);
 }
 
 .secondaryButton {
@@ -434,7 +434,7 @@
 
 .activeMode {
   background: rgba(255, 85, 0, 0.15) !important;
-  color: var(--color-primary) !important;
+  color: var(--color-primary-text) !important;
   border-color: var(--color-primary) !important;
   box-shadow: 0 0 10px rgba(255, 85, 0, 0.2);
 }

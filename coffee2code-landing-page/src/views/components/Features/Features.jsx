@@ -5,10 +5,10 @@ import styles from './Features.module.css';
 
 export function Features({ benefits }) {
   const iconMap = {
-    usbc: <Zap size={24} color="#FF5500" />,
-    led: <Cpu size={24} color="#00D2FF" />,
-    'anti-bug': <ShieldCheck size={24} color="#00FF66" />,
-    bateria: <BatteryCharging size={24} color="#FFB800" />,
+    usbc: <Zap size={24} color="#FF5500" aria-hidden="true" />,
+    led: <Cpu size={24} color="#00D2FF" aria-hidden="true" />,
+    'anti-bug': <ShieldCheck size={24} color="#00FF66" aria-hidden="true" />,
+    bateria: <BatteryCharging size={24} color="#FFB800" aria-hidden="true" />,
   };
 
   return (
@@ -37,7 +37,7 @@ export function Features({ benefits }) {
             >
               <div className={styles.cardTop}>
                 <div className={styles.iconBox}>
-                  {iconMap[benefit.id] || <Zap size={24} color="#FF5500" />}
+                  {iconMap[benefit.id] || <Zap size={24} color="#FF5500" aria-hidden="true" />}
                 </div>
                 <span className={styles.tag}>{benefit.tag}</span>
               </div>

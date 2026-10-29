@@ -38,8 +38,8 @@ export function Footer({ onCtaClick }) {
         <div className={styles.grid}>
           {/* Brand Column */}
           <div className={styles.brandCol}>
-            <a href="#" className={styles.logo}>
-              <div className={styles.logoIcon}>
+            <a href="#" className={styles.logo} aria-label="Coffee2Code — voltar ao topo">
+              <div className={styles.logoIcon} aria-hidden="true">
                 <Coffee size={18} color="#FF5500" />
               </div>
               <span className={styles.logoText}>
@@ -50,7 +50,7 @@ export function Footer({ onCtaClick }) {
               Hardware sob medida para a rotina de quem transforma café em código. Feito por devs, para devs.
             </p>
             <div className={styles.systemStatus}>
-              <span className={styles.statusDot} />
+              <span className={styles.statusDot} aria-hidden="true" />
               <span>Todos os sistemas operacionais</span>
             </div>
           </div>
@@ -87,16 +87,16 @@ export function Footer({ onCtaClick }) {
             <h4 className={styles.colTitle}>Comunidade</h4>
             <div className={styles.socialRow}>
               <a href="#" className={styles.socialLink} aria-label="GitHub">
-                <Globe size={18} />
+                <Globe size={18} aria-hidden="true" />
               </a>
               <a href="#" className={styles.socialLink} aria-label="Twitter / X">
-                <MessageCircle size={18} />
+                <MessageCircle size={18} aria-hidden="true" />
               </a>
               <a href="#" className={styles.socialLink} aria-label="LinkedIn">
-                <Briefcase size={18} />
+                <Briefcase size={18} aria-hidden="true" />
               </a>
               <a href="#" className={styles.socialLink} aria-label="YouTube">
-                <Play size={18} />
+                <Play size={18} aria-hidden="true" />
               </a>
             </div>
             <p className={styles.socialNote}>
@@ -109,14 +109,14 @@ export function Footer({ onCtaClick }) {
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
             © {currentYear} Coffee2Code Inc. — Projeto fictício educacional. Feito com{' '}
-            <Heart size={13} color="#FF5500" fill="#FF5500" /> para a comunidade dev.
+            <Heart size={13} color="#FF5500" fill="#FF5500" aria-hidden="true" /> para a comunidade dev.
           </p>
           <div className={styles.bottomRight}>
             <span className={styles.buildTag}>
-              <Terminal size={12} /> v2.4.0-build.2026
+              <Terminal size={12} aria-hidden="true" /> v2.4.0-build.2026
             </span>
             <button className={styles.backToTop} onClick={scrollToTop} aria-label="Voltar ao topo">
-              <ArrowUp size={16} />
+              <ArrowUp size={16} aria-hidden="true" />
             </button>
           </div>
         </div>

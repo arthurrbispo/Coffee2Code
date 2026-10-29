@@ -27,9 +27,9 @@ export function Testimonials({ testimonials }) {
               whileHover={{ y: -6 }}
             >
               <div className={styles.cardTop}>
-                <div className={styles.stars}>
+                <div className={styles.stars} role="img" aria-label={`${item.rating} de 5 estrelas`}>
                   {[...Array(item.rating)].map((_, i) => (
-                    <Star key={i} size={16} fill="#FFB800" color="#FFB800" />
+                    <Star key={i} size={16} fill="#FFB800" color="#FFB800" aria-hidden="true" />
                   ))}
                 </div>
                 <span className={styles.highlightBadge}>{item.metric}</span>
@@ -38,9 +38,9 @@ export function Testimonials({ testimonials }) {
               <p className={styles.comment}>"{item.comment}"</p>
 
               <div className={styles.authorRow}>
-                <img src={item.avatar} alt={item.name} className={styles.avatar} />
+                <img src={item.avatar} alt="" className={styles.avatar} />
                 <div className={styles.authorInfo}>
-                  <h4 className={styles.name}>{item.name}</h4>
+                  <h3 className={styles.name}>{item.name}</h3>
                   <span className={styles.role}>{item.role}</span>
                 </div>
               </div>

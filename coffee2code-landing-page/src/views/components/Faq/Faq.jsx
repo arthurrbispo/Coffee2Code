@@ -34,8 +34,12 @@ export function Faq({
         {/* Filter & Search Bar */}
         <div className={styles.filterControls}>
           <div className={styles.searchBox}>
-            <Search size={18} color="#94A3B8" className={styles.searchIcon} />
+            <Search size={18} color="#94A3B8" className={styles.searchIcon} aria-hidden="true" />
+            <label htmlFor="faq-search" className="sr-only">
+              Buscar perguntas frequentes
+            </label>
             <input
+              id="faq-search"
               type="text"
               value={faqSearch}
               onChange={(e) => setFaqSearch(e.target.value)}
@@ -43,18 +47,23 @@ export function Faq({
               className={styles.searchInput}
             />
             {faqSearch && (
-              <button className={styles.clearSearch} onClick={() => setFaqSearch('')}>
+              <button
+                className={styles.clearSearch}
+                onClick={() => setFaqSearch('')}
+                aria-label="Limpar busca"
+              >
                 ✕
               </button>
             )}
           </div>
 
-          <div className={styles.categoryPills}>
+          <div className={styles.categoryPills} role="group" aria-label="Filtrar por categoria">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 className={`${styles.catPill} ${faqCategory === cat.id ? styles.catPillActive : ''}`}
                 onClick={() => setFaqCategory(cat.id)}
+                aria-pressed={faqCategory === cat.id}
               >
                 {cat.label}
               </button>
@@ -67,12 +76,15 @@ export function Faq({
           {faqs.length > 0 ? (
             faqs.map((faq, index) => {
               const isOpen = openFaqIndex === index;
+              const faqId = faq.id || index;
               return (
-                <div key={faq.id || index} className={`${styles.faqItem} ${isOpen ? styles.faqItemOpen : ''}`}>
+                <div key={faqId} className={`${styles.faqItem} ${isOpen ? styles.faqItemOpen : ''}`}>
                   <button
+                    id={`faq-question-${faqId}`}
                     className={styles.faqQuestion}
                     onClick={() => toggleFaq(index)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${faqId}`}
                   >
                     <div className={styles.questionTextGroup}>
                       <span className={styles.faqCategoryBadge}>{faq.categoryLabel || 'Geral'}</span>
@@ -82,6 +94,7 @@ export function Faq({
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.25 }}
                       className={styles.chevronWrapper}
+                      aria-hidden="true"
                     >
                       <ChevronDown size={20} color={isOpen ? '#FF5500' : '#94A3B8'} />
                     </motion.div>
@@ -90,6 +103,9 @@ export function Faq({
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
+                        id={`faq-answer-${faqId}`}
+                        role="region"
+                        aria-labelledby={`faq-question-${faqId}`}
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}

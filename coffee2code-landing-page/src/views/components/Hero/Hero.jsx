@@ -28,11 +28,11 @@ export function Hero({ onCtaClick }) {
         >
           <div className={styles.badgeGroup}>
             <span className={styles.statusPill}>
-              <span className={styles.statusDot} />
+              <span className={styles.statusDot} aria-hidden="true" />
               HARDWARE v2.4 ONLINE
             </span>
             <span className={styles.badge}>
-              <Terminal size={14} /> // Dev-Proof Specs
+              <Terminal size={14} aria-hidden="true" /> // Dev-Proof Specs
             </span>
           </div>
 
@@ -47,7 +47,7 @@ export function Hero({ onCtaClick }) {
           <div className={styles.ctaGroup}>
             <button className={styles.ctaButton} onClick={onCtaClick}>
               <span>Garantir Lote Limitado</span>
-              <ArrowRight size={18} />
+              <ArrowRight size={18} aria-hidden="true" />
             </button>
             <a href="#tecnologia" className={styles.secondaryButton}>
               Explorar Telemetria
@@ -56,36 +56,38 @@ export function Hero({ onCtaClick }) {
 
           <div className={styles.featureHighlights}>
             <div className={styles.featureItem}>
-              <CheckCircle size={16} color="#00FF66" />
+              <CheckCircle size={16} color="#00FF66" aria-hidden="true" />
               <span>Mantém em 65°C constantes</span>
             </div>
             <div className={styles.featureItem}>
-              <CheckCircle size={16} color="#00FF66" />
+              <CheckCircle size={16} color="#00FF66" aria-hidden="true" />
               <span>Display OLED Integrado</span>
             </div>
             <div className={styles.featureItem}>
-              <CheckCircle size={16} color="#00FF66" />
+              <CheckCircle size={16} color="#00FF66" aria-hidden="true" />
               <span>Conexão USB-C PD</span>
             </div>
           </div>
 
           <div className={styles.socialProof}>
-            <div className={styles.avatarGroup}>
+            <div className={styles.avatarGroup} aria-hidden="true">
               <img
                 src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100"
-                alt="Dev 1"
+                alt=""
               />
               <img
                 src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=100"
-                alt="Dev 2"
+                alt=""
               />
               <img
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=100"
-                alt="Dev 3"
+                alt=""
               />
             </div>
             <div className={styles.proofText}>
-              <div className={styles.stars}>★★★★★ <span>4.9/5</span></div>
+              <div className={styles.stars} role="img" aria-label="Avaliação de 4,9 de 5 estrelas">
+                ★★★★★ <span aria-hidden="true">4.9/5</span>
+              </div>
               <p>Aprovado por mais de <strong>+1.200 desenvolvedores</strong></p>
             </div>
           </div>
@@ -99,14 +101,14 @@ export function Hero({ onCtaClick }) {
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           {/* Steam Animation */}
-          <div className={styles.steamContainer}>
+          <div className={styles.steamContainer} aria-hidden="true">
             <span className={`${styles.steam} ${styles.steam1}`} />
             <span className={`${styles.steam} ${styles.steam2}`} />
             <span className={`${styles.steam} ${styles.steam3}`} />
           </div>
 
           <div className={styles.mugCard}>
-            <div className={styles.mugHeader}>
+            <div className={styles.mugHeader} aria-hidden="true">
               <span className={styles.mugBrand}>COFFEE2CODE</span>
               <span className={styles.tempBadge}>
                 <Flame size={14} color="#FF5500" />
@@ -114,7 +116,7 @@ export function Hero({ onCtaClick }) {
               </span>
             </div>
 
-            <div className={styles.mugVisualWrapper}>
+            <div className={styles.mugVisualWrapper} aria-hidden="true">
               <motion.div
                 className={styles.mugMockup}
                 animate={{ y: [0, -8, 0] }}
@@ -146,23 +148,26 @@ export function Hero({ onCtaClick }) {
 
             {/* Interactive Mode Switches */}
             <div className={styles.tempControls}>
-              <span className={styles.controlLabel}>Modos da Caneca:</span>
-              <div className={styles.btnGroup}>
+              <span className={styles.controlLabel} id="modos-caneca-label">Modos da Caneca:</span>
+              <div className={styles.btnGroup} role="group" aria-labelledby="modos-caneca-label">
                 <button
                   className={`${styles.modeBtn} ${activeTemp === 65 ? styles.activeMode : ''}`}
                   onClick={() => handleTempChange(65, 'NOMINAL')}
+                  aria-pressed={activeTemp === 65}
                 >
                   65°C Dev Hot
                 </button>
                 <button
                   className={`${styles.modeBtn} ${activeTemp === 75 ? styles.activeMode : ''}`}
                   onClick={() => handleTempChange(75, 'BOOST')}
+                  aria-pressed={activeTemp === 75}
                 >
                   75°C Turbo
                 </button>
                 <button
                   className={`${styles.modeBtn} ${activeTemp === 50 ? styles.activeMode : ''}`}
                   onClick={() => handleTempChange(50, 'ECO')}
+                  aria-pressed={activeTemp === 50}
                 >
                   50°C Eco
                 </button>
